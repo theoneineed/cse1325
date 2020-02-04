@@ -1,7 +1,13 @@
+#ifndef __COLOR_H
+#define __COLOR_H
+
 #include <iostream>
-using namespace std;
+#include <string>
+#include <sstream> //got it from geeksforgeeks
 class Color
 {
+private:
+  int _red,_green,_blue;
 public:
   Color(int red, int green, int blue);
   //Since all the colors will be combination of rgb
@@ -11,10 +17,10 @@ public:
   //method returns its parameter preceded by the ANSI escape code for set fg color,and followed by ANSI esc code for Reset
 };
 
-int main()
-{
-  //instances color class into 3 objects
-  //then, ask thhe user for 3 integers representing r,g,b.print the integers in color that comes from the comb. of the given no
-  
 
-}
+
+
+
+
+
+#endif
