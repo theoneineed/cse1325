@@ -1,4 +1,5 @@
 #include "Color.h"
+
 Color::Color (){};
 Color::Color (int red, int green, int blue):_red{red},_green{green},_blue{blue}{}
 
@@ -38,9 +39,48 @@ std::ostream& operator<< (std::ostream& ost, const Color& color)
 std::istream& operator>>(std::istream& ist, Color& color)
 {
   std:: string red1,green1,blue1;
-  ist>>red1>>green1>>blue1;
+  std::string whole;
+  ist>>whole;
+  int pos=whole.find(",");
+  red1= whole.substr(1,pos-1);
+
+  //std::cout<<whole<<std::endl;
+  //std::cout<<red1<<std::endl;
+/*
+std::string s;
+get(ist,s,',');
+std::cout<< s;
+*/
+  whole=whole.substr(pos+1);
+  pos=whole.find(",");
+  green1= whole.substr(0,pos);
+
+
+
+  //std::cout<<green1<<std::endl;
+  //std::cout<<whole<<std::endl;
+
+
+
+
+  whole=whole.substr(pos+1);
+  pos=whole.find(")");
+  blue1= whole.substr(0,pos);
+  //std::cout<<whole<<std::endl;
+
+
+
+  whole= whole.substr(pos);
+  //std::cout<<blue1<<std::endl;
+  //std::cout<<whole<<std::endl;
+
+//  std::cout<<red1<<green1<<blue1<<std::endl;
+
+  //ist>>red1>>green1>>blue1;
   color._red=std::stoi(red1);//stoi is used to convert string to integer
   color._green=std::stoi(green1);//stoi is used to convert string to integer
   color._blue=std::stoi(blue1);//stoi is used to convert string to integer
-  return ist;//that way, we can get the value
+  //ist>>red1>>green1>>blue1;//that way, we can get the value
+
+  return ist;
 }

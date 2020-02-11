@@ -3,7 +3,9 @@
 
 #include <iostream>
 #include <string>
+#include <string.h>
 #include <sstream> //got it from geeksforgeeks
+#include <cstring>
 class Color
 {
 private:
