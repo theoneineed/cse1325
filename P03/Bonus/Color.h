@@ -23,8 +23,21 @@ public:
   //from the slides of prof
   friend std::istream& operator>>(std::istream& ist, Color& color);
   //friend, because another one needs access to this
-  int magnitude ();
+  int magnitude();
   int compare(Color rhs);
+  bool operator <(int rhs)
+  {} ;
+  bool operator >(int rhs)
+  {};
+  bool operator <=(int rhs)
+  {};
+  bool operator >=(int rhs)
+  {};
+  bool operator ==(int rhs)
+  {};
+  bool operator !=(int rhs)
+  {};
+
 
 };
 

@@ -11,11 +11,11 @@ std::string Color::to_string()
 
 
 int Color::magnitude() const {
-  return static_cast<int>
+  return static_cast<int> //got help from prof's slides
   (
-    0.21 * (double)_red
-    + 0.72 * (double)_green
-    + 0.07 * (double)_blue
+    0.21 * (int)_red
+    + 0.72 * (int)_green
+    + 0.07 * (int)_blue
   );
 }
 
@@ -69,7 +69,7 @@ std::istream& operator>>(std::istream& ist, Color& color)
   return ist;//that way, we can get the value
 }
 
-bool Color:: operator <(const Color& rhs )
+bool operator <(int rhs )
 {
   if (magnitude()<rhs)
   {
@@ -80,12 +80,92 @@ bool Color:: operator <(const Color& rhs )
     <<rhs
     <<"\033[0m";
 
+    return true;
 
-    return "\033[38;2;"
-         + std::to_string(_red)   + ';'
-         + std::to_string(_green) + ';'
-         + std::to_string(_blue)  + 'm'
-         + text
-         + "\033[0m";
+  }
+}
+
+bool operator >(int rhs )
+{
+  if (magnitude()>rhs)
+  {
+    std::cout
+    <<"\033[38;2;"
+    <<whole
+    <<" is less than "
+    <<rhs
+    <<"\033[0m";
+
+
+    return true;
+  }
+}
+
+
+
+bool operator <=(int rhs )
+{
+  if (magnitude()<rhs || magnitude()==rhs)
+  {
+    std::cout
+    <<"\033[38;2;"
+    <<whole
+    <<" is greater than or equal to"
+    <<rhs
+    <<"\033[0m";
+
+
+    return true;
+
+  }
+}
+
+bool operator >=(int rhs )
+{
+  if (magnitude()>rhs || magnitude()==rhs())
+  {
+    std::cout
+    <<"\033[38;2;"
+    <<whole
+    <<" is lesser than or equal to "
+    <<rhs
+    <<"\033[0m";
+
+
+    return true;
+
+  }
+}
+
+
+
+bool operator ==(int rhs )
+{
+  if (magnitude()==rhs)
+  {
+    std::cout
+    <<"\033[38;2;"
+    <<whole
+    <<" is equal to "
+    <<rhs
+    <<"\033[0m";
+
+    return true;
+  }
+}
+
+
+bool operator !=(int rhs )
+{
+  if (magnitude()!=rhs)
+  {
+    std::cout
+    <<"\033[38;2;"
+    <<whole
+    <<" is not equal to "
+    <<rhs
+    <<"\033[0m";
+
+    return true;
   }
 }
