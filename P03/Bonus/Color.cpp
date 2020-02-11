@@ -7,6 +7,21 @@ std::string Color::to_string()
   std::string data= "(" +std::to_string(_red)+","+std::to_string(_green)+","+std::to_string(_blue)+")";
   return data;
 }
+
+
+
+int Color::magnitude() const {
+  return static_cast<int>
+  (
+    0.21 * (double)_red
+    + 0.72 * (double)_green
+    + 0.07 * (double)_blue
+  );
+}
+
+
+
+
 /*
 std::string Color::colorize(std::string text)
 {
@@ -52,4 +67,25 @@ std::istream& operator>>(std::istream& ist, Color& color)
   color._green=std::stoi(green1);//stoi is used to convert string to integer
   color._blue=std::stoi(blue1);//stoi is used to convert string to integer
   return ist;//that way, we can get the value
+}
+
+bool Color:: operator <(const Color& rhs )
+{
+  if (magnitude()<rhs)
+  {
+    std::cout
+    <<"\033[38;2;"
+    <<whole
+    <<" is greater than "
+    <<rhs
+    <<"\033[0m";
+
+
+    return "\033[38;2;"
+         + std::to_string(_red)   + ';'
+         + std::to_string(_green) + ';'
+         + std::to_string(_blue)  + 'm'
+         + text
+         + "\033[0m";
+  }
 }
