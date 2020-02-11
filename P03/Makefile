@@ -16,5 +16,9 @@ Color.gch: Color.h
 run: Color
 	./Color
 
+
+
+
+
 clean:
-	rm -f *.o *.gch ~* color
+	rm -f *.o *.gch ~* Color
