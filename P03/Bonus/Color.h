@@ -4,6 +4,9 @@
 #include <iostream>
 #include <string>
 #include <sstream> //got it from geeksforgeeks
+#include <string.h>
+#include <cstring>
+
 class Color
 {
 private:
@@ -20,6 +23,8 @@ public:
   //from the slides of prof
   friend std::istream& operator>>(std::istream& ist, Color& color);
   //friend, because another one needs access to this
+  int magnitude ();
+  int compare(Color rhs);
 
 };
 
