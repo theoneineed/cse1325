@@ -4,7 +4,8 @@
 #include <string>
 #include <ostream>
 
-class Options {
+class Options
+ {
   public:
     Options(std::string name, double cost);
     virtual ~Options();

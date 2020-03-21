@@ -7,7 +7,7 @@
 
 class Order {
   public:
-    Order (Custmer& customer);
+    Order (Customer& customer);
     virtual ~Order();
     int add_product(Desktop& desktop);
     double price();
