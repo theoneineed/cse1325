@@ -3,6 +3,7 @@
 
 #include <string>
 #include <ostream>
+#include <vector>
 
 class Order {
   public:
