@@ -14,7 +14,6 @@ Options::~Options(){}
 
 double Options::cost()
 {
-  return _cost();
   //This will show the price of the device that will be added to computer
 }
 

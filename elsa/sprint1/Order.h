@@ -11,6 +11,8 @@ class Order {
     virtual ~Order();
     int add_product(Desktop& desktop);
     double price();
+    friend std::ostream& operator<<(std::ostream& ost, const Product& product);
+
   private:
     Customer& _customer;
     std::vector< Desktop* > _products;

@@ -11,6 +11,8 @@ class Options
     virtual ~Options();
     double cost();
     std::string to_string();
+    friend std::ostream& operator<<(std::ostream& ost, const Product& product);
+
   private:
     std::string _name;
     double _cost;

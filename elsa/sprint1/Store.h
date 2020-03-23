@@ -11,7 +11,7 @@ private:
   std::vector<Options*> options;
   std::vector<Desktop> desktops;
   std::vector<Order> orders;
-  
+
 public:
   void add_customer(Customer& customer);
   int num_customers();
@@ -27,6 +27,8 @@ public:
   void add_desktop(int desktop, int order);
   int num_orders();
   Order& order(int index);
+  friend std::ostream& operator<<(std::ostream& ost, const Product& product);
+
 
 };
 

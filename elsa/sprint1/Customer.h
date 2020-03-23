@@ -12,6 +12,7 @@ class Customer {
     std::string _name;
     std::string _phone;
     std::string _email;
+    friend std::ostream& operator<<(std::ostream& ost, const Product& product);
 
 };
 
