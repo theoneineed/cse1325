@@ -3,34 +3,27 @@
 
 Order::Order (Customer& customer):_customer{customer}
 {
-  //Insert code here
+  //just a constructor
 }
-
-Order::~Order()
-{
-
-}
+Order::~Order(){}
 
 int Order::add_product(Desktop& desktop)
 {
-
+  _products.push_back(&desktop);
 }
 
 double Order::price()
 {
-  
+  int price1=0;
+  for(int i=0;i<_products.size();i++)
+  {
+    price1+=Desktop::price();
+  }
+  return price1;
 }
-// Product::Product(std::string name, double cost)
-//        : _name{name}, _cost{cost}, _num{0} {
-//     if(_cost < 0) throw std::runtime_error{"Negative cost for " + _name};
-// }
-// Product::~Product() { }
-//
-// void Product::set_quantity(int num) {_num = num;}
-//
-// std::ostream& operator<<(std::ostream& ost, const Product& product) {
-//     ost << product._name << " (";
-//     if(product._num > 0) ost << product._num << " @ ";
-//     ost << "$" << std::fixed << std::setprecision(2) << product._cost << ")";
-//     return ost;
+
+
+std::ostream& operator<<(std::ostream& ost, const Order& order) {
+    ost << Order._customer<<" needs to pay "<<Order::price();
+    return ost;
 }

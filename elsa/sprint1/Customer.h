@@ -7,12 +7,11 @@
 class Customer {
   public:
     Customer(std::string name, std::string phone, std::string email);
-
+    friend std::ostream& operator<<(std::ostream& ost, const Customer& customer);
   private:
     std::string _name;
     std::string _phone;
     std::string _email;
-    friend std::ostream& operator<<(std::ostream& ost, const Product& product);
 
 };
 
