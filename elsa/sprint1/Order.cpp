@@ -10,6 +10,8 @@ Order::~Order(){}
 int Order::add_product(Desktop& desktop)
 {
   _products.push_back(&desktop);
+  int size=_products.size-1;
+  return size;
 }
 
 double Order::price()

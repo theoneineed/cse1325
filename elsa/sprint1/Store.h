@@ -7,7 +7,7 @@
 
 class Store {
 private:
-  std::vector<Customer> customer;
+  std::vector<Customer> customers;
   std::vector<Options*> options;
   std::vector<Desktop> desktops;
   std::vector<Order> orders;
@@ -27,8 +27,6 @@ public:
   void add_desktop(int desktop, int order);
   int num_orders();
   Order& order(int index);
-  friend std::ostream& operator<<(std::ostream& ost, const Product& product);
-
 
 };
 
