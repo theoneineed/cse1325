@@ -1,4 +1,4 @@
-#include "store.h"
+#include "Store.h"
 #include <iostream>
 #include <iomanip>
 
@@ -26,12 +26,12 @@ Command? )";
 
         // LIST ORDERS
         if(cmd == 'o') {
-            for(int i=0; i<store.num_orders(); ++i) 
+            for(int i=0; i<store.num_orders(); ++i)
                 std::cout << i << ") " << store.order(i) << "\n";
 
         // ORDER A NEW COMPUTER
         } else if(cmd == 'O') {
-            for(int i=0; i<store.num_customers(); ++i) 
+            for(int i=0; i<store.num_customers(); ++i)
                 std::cout << i << ") " << store.customer(i) << '\n';
             std::cout << "Customer? ";
             int customer;
@@ -40,7 +40,7 @@ Command? )";
             int order = store.new_order(customer);
 
             while(true) {
-                for(int i=0; i<store.num_desktops(); ++i) 
+                for(int i=0; i<store.num_desktops(); ++i)
                     std::cout << i << ") " << store.desktop(i) << '\n';
                 std::cout << "Desktop (-1 when done)? ";
                 int desktop;
@@ -52,7 +52,7 @@ Command? )";
 
         // LIST CUSTOMERS
         } else if (cmd == 'c') {
-            for(int i=0; i<store.num_customers(); ++i) 
+            for(int i=0; i<store.num_customers(); ++i)
                 std::cout << i << ") " << store.customer(i) << "\n";
 
         // ADD A NEW CUSTOMER
@@ -73,7 +73,7 @@ Command? )";
 
         // LIST ALL PRODUCTS
         } else if (cmd == 'd') {
-                for(int i=0; i<store.num_desktops(); ++i) 
+                for(int i=0; i<store.num_desktops(); ++i)
                     std::cout << i << ") " << store.desktop(i) << "\n";
 
         // CREATE A NEW PRODUCT FROM OPTIONS
@@ -81,7 +81,7 @@ Command? )";
             int desktop = store.new_desktop();
             while(true) {
                 std::cout << store.desktop(desktop) << "\n\n";
-                for(int i=0; i<store.num_options(); ++i) 
+                for(int i=0; i<store.num_options(); ++i)
                    std::cout << i << ") " << store.option(i) << '\n';
                 std::cout << "\nAdd which peripheral (-1 when done)? ";
                 int option;
@@ -96,7 +96,7 @@ Command? )";
 
         // LIST ALL OPTIONS
         } else if (cmd == 'p') {
-            for(int i=0; i<store.num_options(); ++i) 
+            for(int i=0; i<store.num_options(); ++i)
                std::cout << i << ") " << store.option(i) << "\n";
 
         // CREATE A NEW OPTION
@@ -120,4 +120,3 @@ Command? )";
         }
     }
 }
-

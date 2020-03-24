@@ -17,7 +17,7 @@ Customer& Store::customer(int index)
 {
   if(index<customers.size())
   {
-    return &(customers[index]);
+    return (customers[index]);
   }
 }
 
@@ -36,14 +36,14 @@ Options& Store::option(int index)
 {
   if(index<options.size())
   {
-    return &(options[index]);
+    return *(options[index]);
   }
 }
 
 int Store::new_desktop()
 {
-  Desktop new_desk{std::vector<Options*> options};
-  desktops.push_back(&new_desk);
+  Desktop new_desk;
+  desktops.push_back(new_desk);
   int index=desktops.size()-1;
   return index;
   //This is index as this is going to be the last element in the vector which is 1 less than size of the vector
@@ -51,8 +51,8 @@ int Store::new_desktop()
 
 void Store::add_option(int option, int desktop)
 {
-  Options option_new = Store::new_option(std::string _name, double _cost);
-  desktops[desktop].insert(option,option_new);
+//  Options option_new = Store::new_option(std::string _name, double _cost);
+  desktops[desktop].add_option(*(options[option]));
   //what is happening is new option is being created and will be added to passed indes 'option' in passed indexed 'desktop' in desktops vector
 }
 
@@ -66,7 +66,7 @@ Desktop& Store::desktop(int index)
 {
   if(index<desktops.size())
   {
-    return &(desktops[index]);
+    return (desktops[index]);
   }
   else
   {
@@ -76,16 +76,16 @@ Desktop& Store::desktop(int index)
 
 int Store::new_order(int customer)
 {
-  Order new_ord {Customer& _customer, std::vector< Desktop* > _products};
-  return &new_ord;
+  Order new_ord {customers[customer]};
+  orders.push_back(new_ord);
+  return orders.size()-1;
 }
 
 void Store::add_desktop(int desktop, int order)
 {
   Desktop desktop_new (std::vector<Options*> options);
 
-  orders[order].insert(desktop,desktop_new)
-
+  orders[order].add_product(desktops[desktop]);
   //what is happening is new option is being created and will be added to passed indes 'option' in passed indexed 'desktop' in desktops vector
 
 }
@@ -100,7 +100,7 @@ Order& Store::order(int index)
 {
   if(index<orders.size())
   {
-    return &(orders[index]);
+    return (orders[index]);
   }
   else
   {

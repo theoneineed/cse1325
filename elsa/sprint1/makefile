@@ -1,10 +1,12 @@
 CXXFLAGS = --std=c++17
 
-all: product
+all: main
 
-product: Customer.o Options.o Desktop.o Order.o Store.o *.h
-	$(CXX) $(CXXFLAGS) Customer.o Options.o Desktop.o Order.o Store.o -o product
+main: main.o Customer.o Options.o Desktop.o Order.o Store.o *.h
+	$(CXX) $(CXXFLAGS) main.o Customer.o Options.o Desktop.o Order.o Store.o -o product
 
+main.o: main.cpp *.h
+		$(CXX) $(CXXFLAGS) main.cpp -c -o main.o
 Customer.o: Customer.cpp *.h
 	$(CXX) $(CXXFLAGS) Customer.cpp -c -o Customer.o
 
