@@ -1,4 +1,5 @@
 #include "Options.h"
+#include <string>
 #include <iomanip>
 /*Both Desktop and Store use pointers to track Option instamces which indicates
 that this will become the base class for derived classes storing tech specific info*/
