@@ -1,9 +1,11 @@
 #include "Store.h"
 #include <iomanip>
+#include <vector>
+
 
 void Store::add_customer(Customer& customer)
 {
-  customers.push_back(&customer);
+  customers.push_back(customer);
 }
 
 int Store::num_customers()
@@ -21,18 +23,7 @@ Customer& Store::customer(int index)
 
 void Store::add_option(Options& option)
 {
-  int index=0;
-  std::cout << "Insert the index" << '\n';
-  std::cin >> index;
-  if (index>-1||index<options.size())
-  {
-    options.insert(index, &option);
-    //This inserts the option to the options vector at desired index
-  }
-  else
-  {
-    std::cout << "Index out of bound" << '\n';
-  }
+  options.push_back(&option);
 }
 
 int Store::num_options()

@@ -4,14 +4,14 @@
 #include <string>
 #include <ostream>
 #include <vector>
-
+#include "Desktop.h"
 class Order {
   public:
     Order (Customer& customer);
     virtual ~Order();
     int add_product(Desktop& desktop);
-    double price();
-    friend std::ostream& operator<<(std::ostream& ost, const Product& product);
+    double price() const;
+    friend std::ostream& operator<<(std::ostream& ost, const Order& order);
 
   private:
     Customer& _customer;

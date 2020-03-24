@@ -4,7 +4,8 @@
 #include <string>
 #include <ostream>
 #include <vector>
-
+#include <iostream>
+#include "Order.h"
 class Store {
 private:
   std::vector<Customer> customers;
