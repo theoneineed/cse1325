@@ -27,10 +27,14 @@ Command? )";
         // LIST ORDERS
         if(cmd == 'o') {
             for(int i=0; i<store.num_orders(); ++i)
-                std::cout << i << ") " << store.order(i) << "\n";
+              { std::cout << i << ") "<< "\n";
+                store.order(i);
+              }
 
         // ORDER A NEW COMPUTER
-        } else if(cmd == 'O') {
+        }
+        else if(cmd == 'O')
+        {
             for(int i=0; i<store.num_customers(); ++i)
                 std::cout << i << ") " << store.customer(i) << '\n';
             std::cout << "Customer? ";
@@ -45,13 +49,15 @@ Command? )";
                 std::cout << "Desktop (-1 when done)? ";
                 int desktop;
                 std::cin >> desktop; std::cin.ignore(32767, '\n');
-                if(desktop == -1) break;
+                if(desktop == -1) {break;}
                 store.add_desktop(desktop, order);
             }
-            std::cout << "\n++++ Order Placed ++++\n" << store.order(order);
+            std::cout << "\n++++ Order Placed ++++\n";
+            store.order(order);
 
         // LIST CUSTOMERS
-        } else if (cmd == 'c') {
+        }
+        else if (cmd == 'c') {
             for(int i=0; i<store.num_customers(); ++i)
                 std::cout << i << ") " << store.customer(i) << "\n";
 
@@ -86,7 +92,7 @@ Command? )";
                 std::cout << "\nAdd which peripheral (-1 when done)? ";
                 int option;
                 std::cin >> option; std::cin.ignore(32767, '\n');
-                if(option == -1) break;
+                if(option == -1) {break;}
                 try {
                     store.add_option(option, desktop);
                 } catch(std::exception& e) {

@@ -98,8 +98,10 @@ int Store::num_orders()
 
 Order& Store::order(int index)
 {
+  if(orders.size()==0){std::cout << "We don't have any orders rn. Please try later." << '\n';}
   if(index<orders.size())
   {
+    std::cout<<orders[index]<<"\n";
     return (orders[index]);
   }
   else
