@@ -19,7 +19,8 @@ double Order::price()
   int price1=0;
   for(int i=0;i<_products.size();i++)
   {
-    price1+=Desktop::price();
+    price1+=_products[i].price();
+    //IDK if it works or not.
   }
   return price1;
 }
