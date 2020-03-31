@@ -174,14 +174,6 @@ Mainwin::Mainwin(){
 
 
 
-
-
-
-
-
-
-
-
   //     Q U I T
   // Push the quit botton all the way to the right by setting set_expand true
   Gtk::SeparatorToolItem *sep = Gtk::manage(new Gtk::SeparatorToolItem());
@@ -190,7 +182,7 @@ Mainwin::Mainwin(){
 
   // Add a icon for quitting
   Gtk::ToolButton *quit_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::QUIT));
-  quit_button->set_tooltip_markup("Exit game");
+  quit_button->set_tooltip_markup("Exit");
   quit_button->signal_clicked().connect([this] {this->on_quit_click();});
   toolbar->append(*quit_button);
 
@@ -199,10 +191,10 @@ Mainwin::Mainwin(){
   //sake of erasing heap after it is closed and hexpand and vexpand expand the label
   //horizontallu and vertically so that menu transforms accorsingly.
   // Provide a text entry box to show the remaining sticks
-  bucket = Gtk::manage(new Gtk::Label());
-  bucket->set_hexpand(true);
-  bucket->set_vexpand(true);
-  vbox->add(*bucket);
+  data= Gtk::manage(new Gtk::Label());
+  data->set_hexpand(true);
+  data->set_vexpand(true);
+  vbox->add(*data);
 
   //now, to contain horizontal box inside a vertical box
   Gtk::Box *hbox = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_HORIZONTAL, 0));
@@ -368,13 +360,6 @@ void Mainwin::on_insert_order_click()
 
 void Mainwin::on_insert_customer_click()
 {
-
-};
-
-
-
-void Mainwin::on_about_click()
-{
   std::string name = get_string("Name of the customer? ");
   if(name.size())
   {
@@ -441,101 +426,19 @@ void Mainwin::set_msg(std::string s)
 
 
 
-
-void Mainwin::on_button_click(int button) {
-  try {
-    // Catch the "impossible" out of sticks exception
-    nim->take_sticks(button);
-    set_sticks();
-  } catch(std::exception& e) {
-    sticks->set_markup("<b>FAIL:</b> " + std::string{e.what()} + ", start new game");
-  }
-}
-
-// void Mainwin::on_computer_player_click() {
-//   set_sticks();
-// }
-//
-// void Mainwin::on_new_game_click() {
-//   delete nim;
-//   nim = new Nim();
-//   set_sticks();
-// }
-//
-// void Mainwin::on_quit_click() {
-//   close();
-// }
-//
-// void Mainwin::on_rules_click() {
-//   Glib::ustring s = R"(
-//     <span size='24000' weight='bold'>The Rules of Nim</span>
-//     <span size='large'>Copyright 2017-2020 by George F. Rice - CC BY 4.0</span>
-//
-//     The two players alternate taking 1 to 3 sticks from the pile. The goal is to force your opponent to take the last stick (called misère rules).
-//
-//     If the computer button is up, it's a two player game. If down, the computer is always Player 2.)";
-//     Gtk::MessageDialog{*this, s, true}.run(); // 'true' as 3rd parameter enables Pango markup
-//   }
-
   void Mainwin::on_about_click() {
     Gtk::AboutDialog dialog;
     dialog.set_transient_for(*this); // Avoid the discouraging warning
     dialog.set_program_name("Project_ELSA_CSE1325");
-    auto logo = Gdk::Pixbuf::create_from_file("elsa.webp");
-    dialog.set_logo(logo);
+    //auto logo = Gdk::Pixbuf::create_from_file("elsa.webp");
+    //dialog.set_logo(logo);
     dialog.set_version("Version 0.0.1");
-    dialog.set_copyright("Do whatever I don't care liscence");
+    dialog.set_copyright("Copyright 2017-2020");
     dialog.set_license_type(Gtk::License::LICENSE_GPL_3_0);
-    std::vector< Glib::ustring > authors = {"Nabin"};
+    std::vector< Glib::ustring > authors = {"Nabin Chapagain"};
     dialog.set_authors(authors);
-    std::vector< Glib::ustring > artists = {
-      "Logo from pixabay, liscenced for free use https://pixabay.com/vectors/frozen-elsa-cold-disney-princess-2267127/"};
-      dialog.set_artists(artists);
+    // std::vector< Glib::ustring > artists = {
+    //   "Logo from pixabay, liscenced for free use https://pixabay.com/vectors/frozen-elsa-cold-disney-princess-2267127/"};
+    //   dialog.set_artists(artists);
       dialog.run();
-    }
-
-    // /////////////////
-    // U T I L I T I E S
-    // /////////////////
-
-    // void Mainwin::set_sticks() {
-    //   // s collects the status message
-    //   Glib::ustring s = "";
-    //
-    //   // If the robot is enabled and it's their turn, move the robot
-    //   if (nim->sticks_left() > 0) {
-    //     if (computer_player->get_active() && nim->current_player() == 2) {
-    //       int move = 1;
-    //       try {
-    //         move = nim->optimal_move();      // "Impossible" exception warning
-    //       } catch(std::exception& e) {         // If it happens, log an error
-    //         std::cerr << "Invalid optimal move: " << e.what() << std::endl;
-    //       }
-    //       s += "Robot plays " + std::to_string(move) + ", ";
-    //       nim->take_sticks(move);
-    //     }
-    //   }
-    //
-    //   // Report who's turn it is, or (if all sticks gone) who won
-    //   if (nim->sticks_left() > 0) {
-    //     s += "Player " + std::to_string(nim->current_player()) + "'s turn";
-    //   } else {
-    //     s += "<span size='16000' weight='bold'>Player "
-    //     +  std::to_string(3-nim->current_player())
-    //     +  " wins!</span>";
-    //   }
-    //
-    //   // Display the collected status on the status bar
-    //   msg->set_markup(s);
-    //
-    //   // Update the visual display of sticks
-    //   s = "<span size='24000' weight='bold'>";
-    //   for(int i=0; i<nim->sticks_left(); ++i) s.append("| ");
-    //   s.append("</span>  (" + std::to_string(nim->sticks_left()) + " sticks)");
-    //   sticks->set_markup(s);
-    //
-    //   // Set sensitivity of the human stick selectors so user can't make an illegal move
-    //   button1->set_sensitive(nim->sticks_left() > 0);
-    //   button2->set_sensitive(nim->sticks_left() > 1);
-    //   button3->set_sensitive(nim->sticks_left() > 2);
     }
