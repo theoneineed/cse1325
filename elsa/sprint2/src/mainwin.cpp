@@ -19,7 +19,7 @@ Mainwin::Mainwin(){
   // G U I   S E T U P
   // /////////////////
   store=new Store();
-  set_default_size(850, 1200); //going crazy over here LOL
+  set_default_size(450,550); //going crazy over here LOL
   set_title("Project_ELSA_CSE1325");
 
   // Put a vertical box container as the Window contents
@@ -354,7 +354,7 @@ void Mainwin::on_insert_order_click()
   }
 
 
-  set_msg("With that, we got new order placed!!");
+  //set_msg("With that, we got new order placed!!");
 
 };
 
@@ -425,13 +425,12 @@ void Mainwin::set_msg(std::string s)
 
 
 
-
   void Mainwin::on_about_click() {
     Gtk::AboutDialog dialog;
     dialog.set_transient_for(*this); // Avoid the discouraging warning
     dialog.set_program_name("Project_ELSA_CSE1325");
-    //auto logo = Gdk::Pixbuf::create_from_file("elsa.webp");
-    //dialog.set_logo(logo);
+    auto logo = Gdk::Pixbuf::create_from_file("ELSA.PNG");
+    dialog.set_logo(logo);
     dialog.set_version("Version 0.0.1");
     dialog.set_copyright("Copyright 2017-2020");
     dialog.set_license_type(Gtk::License::LICENSE_GPL_3_0);
