@@ -431,7 +431,7 @@ void Mainwin::set_msg(std::string s)
     dialog.set_program_name("Project_ELSA_CSE1325");
     auto logo = Gdk::Pixbuf::create_from_file("ELSA.PNG");
     dialog.set_logo(logo);
-    dialog.set_version("Version 0.0.1");
+    dialog.set_version("Version0_0_1");
     dialog.set_copyright("Copyright 2017-2020");
     dialog.set_license_type(Gtk::License::LICENSE_GPL_3_0);
     std::vector< Glib::ustring > authors = {"Nabin Chapagain"};
