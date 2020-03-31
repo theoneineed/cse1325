@@ -365,7 +365,6 @@ void Mainwin::on_insert_order_click()
   set_msg("With that, we got new order placed!!");
 
 };
-//update now
 
 void Mainwin::on_insert_customer_click()
 {
@@ -376,7 +375,15 @@ void Mainwin::on_insert_customer_click()
 
 void Mainwin::on_about_click()
 {
-
+  std::string name = get_string("Name of the customer? ");
+  if(name.size())
+  {
+    std::string phone = get_string("Enter your phone number(no area code reqd.)? ");
+    std::string email = get_string("Enter email of customer (xxx@domain.com)? ");
+    Customer customer{name, phone, email};
+    store->add_customer(customer);
+  }
+  set_msg("New Customer added...");
 };
 
 
@@ -384,6 +391,12 @@ void Mainwin::on_about_click()
 std::string Mainwin::get_string(std::string prompt)
 {
 
+  EntryDialog edialog{*this, "Please enter a string...", true};
+  edialog.set_secondary_text(prompt, true);
+  edialog.set_text(" ");
+  edialog.run();
+  std::string output = edialog.get_text();
+  return output;
 };
 
 
@@ -391,27 +404,38 @@ std::string Mainwin::get_string(std::string prompt)
 double Mainwin::get_double(std::string prompt)
 {
 
+  EntryDialog edialog{*this, prompt, true};
+
+  edialog.set_text(" ");
+  edialog.run();
+  std::string output = edialog.get_text();
+  return std::stod(output);
+
 };
 
 
 
 int Mainwin::get_int(std::string prompt)
 {
-
+  EntryDialog edialog{*this,prompt, true};
+  edialog.set_text(" ");
+  edialog.run();
+  std::string output = edialog.get_text();
+  return std::stoi(output);
 };
 
 
 
 void Mainwin::set_data(std::string s)
 {
-
+  data->set_markup(s);
 };
 
 
 
 void Mainwin::set_msg(std::string s)
 {
-
+  msg->set_markup(s);
 };
 
 
@@ -456,17 +480,16 @@ void Mainwin::on_button_click(int button) {
   void Mainwin::on_about_click() {
     Gtk::AboutDialog dialog;
     dialog.set_transient_for(*this); // Avoid the discouraging warning
-    dialog.set_program_name("Nim");
-    auto logo = Gdk::Pixbuf::create_from_file("128px-Pyramidal_matches.png");
+    dialog.set_program_name("Project_ELSA_CSE1325");
+    auto logo = Gdk::Pixbuf::create_from_file("elsa.webp");
     dialog.set_logo(logo);
-    dialog.set_version("Version 1.2.1");
-    dialog.set_copyright("Copyright 2017-2020");
+    dialog.set_version("Version 0.0.1");
+    dialog.set_copyright("Do whatever I don't care liscence");
     dialog.set_license_type(Gtk::License::LICENSE_GPL_3_0);
-    std::vector< Glib::ustring > authors = {"George F. Rice"};
+    std::vector< Glib::ustring > authors = {"Nabin"};
     dialog.set_authors(authors);
     std::vector< Glib::ustring > artists = {
-      "Logo by M0tty, licensed under CC BY-SA 3.0 https://commons.wikimedia.org/wiki/File:Pyramidal_matches.svg",
-      "Robot by FreePik.com, licensed for personal and commercial purposes with attribution https://www.freepik.com/free-vector/grey-robot-silhouettes_714902.htm"};
+      "Logo from pixabay, liscenced for free use https://pixabay.com/vectors/frozen-elsa-cold-disney-princess-2267127/"};
       dialog.set_artists(artists);
       dialog.run();
     }
@@ -475,44 +498,44 @@ void Mainwin::on_button_click(int button) {
     // U T I L I T I E S
     // /////////////////
 
-    void Mainwin::set_sticks() {
-      // s collects the status message
-      Glib::ustring s = "";
-
-      // If the robot is enabled and it's their turn, move the robot
-      if (nim->sticks_left() > 0) {
-        if (computer_player->get_active() && nim->current_player() == 2) {
-          int move = 1;
-          try {
-            move = nim->optimal_move();      // "Impossible" exception warning
-          } catch(std::exception& e) {         // If it happens, log an error
-            std::cerr << "Invalid optimal move: " << e.what() << std::endl;
-          }
-          s += "Robot plays " + std::to_string(move) + ", ";
-          nim->take_sticks(move);
-        }
-      }
-
-      // Report who's turn it is, or (if all sticks gone) who won
-      if (nim->sticks_left() > 0) {
-        s += "Player " + std::to_string(nim->current_player()) + "'s turn";
-      } else {
-        s += "<span size='16000' weight='bold'>Player "
-        +  std::to_string(3-nim->current_player())
-        +  " wins!</span>";
-      }
-
-      // Display the collected status on the status bar
-      msg->set_markup(s);
-
-      // Update the visual display of sticks
-      s = "<span size='24000' weight='bold'>";
-      for(int i=0; i<nim->sticks_left(); ++i) s.append("| ");
-      s.append("</span>  (" + std::to_string(nim->sticks_left()) + " sticks)");
-      sticks->set_markup(s);
-
-      // Set sensitivity of the human stick selectors so user can't make an illegal move
-      button1->set_sensitive(nim->sticks_left() > 0);
-      button2->set_sensitive(nim->sticks_left() > 1);
-      button3->set_sensitive(nim->sticks_left() > 2);
+    // void Mainwin::set_sticks() {
+    //   // s collects the status message
+    //   Glib::ustring s = "";
+    //
+    //   // If the robot is enabled and it's their turn, move the robot
+    //   if (nim->sticks_left() > 0) {
+    //     if (computer_player->get_active() && nim->current_player() == 2) {
+    //       int move = 1;
+    //       try {
+    //         move = nim->optimal_move();      // "Impossible" exception warning
+    //       } catch(std::exception& e) {         // If it happens, log an error
+    //         std::cerr << "Invalid optimal move: " << e.what() << std::endl;
+    //       }
+    //       s += "Robot plays " + std::to_string(move) + ", ";
+    //       nim->take_sticks(move);
+    //     }
+    //   }
+    //
+    //   // Report who's turn it is, or (if all sticks gone) who won
+    //   if (nim->sticks_left() > 0) {
+    //     s += "Player " + std::to_string(nim->current_player()) + "'s turn";
+    //   } else {
+    //     s += "<span size='16000' weight='bold'>Player "
+    //     +  std::to_string(3-nim->current_player())
+    //     +  " wins!</span>";
+    //   }
+    //
+    //   // Display the collected status on the status bar
+    //   msg->set_markup(s);
+    //
+    //   // Update the visual display of sticks
+    //   s = "<span size='24000' weight='bold'>";
+    //   for(int i=0; i<nim->sticks_left(); ++i) s.append("| ");
+    //   s.append("</span>  (" + std::to_string(nim->sticks_left()) + " sticks)");
+    //   sticks->set_markup(s);
+    //
+    //   // Set sensitivity of the human stick selectors so user can't make an illegal move
+    //   button1->set_sensitive(nim->sticks_left() > 0);
+    //   button2->set_sensitive(nim->sticks_left() > 1);
+    //   button3->set_sensitive(nim->sticks_left() > 2);
     }
