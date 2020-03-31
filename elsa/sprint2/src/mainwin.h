@@ -4,6 +4,8 @@
 #include <gtkmm.h>
 #include "store.h"
 
+class Mainwin: public Gtk::Window
+{
 public:
   Mainwin();
   virtual ~Mainwin();
@@ -28,12 +30,8 @@ protected:
 private:
   Store* store;
   Gtk::Label* data;
-  
-
-
-
-
-
+  Gtk::Label* msg;
+};
 
 
 
