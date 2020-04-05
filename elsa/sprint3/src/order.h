@@ -7,11 +7,19 @@
 class Order {
   public:
     Order(Customer& customer);
+
     virtual ~Order();
+
     int add_product(Desktop& desktop);
+
     double price() const;
+
+    Order(std::istream& ist);
+
+    void save (std::ostream& ost);
+
     friend std::ostream& operator<<(std::ostream& ost, const Order& order);
-    // duita public thapnuchha
+    //added  two new methods compared to sprint 1
   private:
     Customer& _customer;
     std::vector<Desktop*> _products;

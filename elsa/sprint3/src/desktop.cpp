@@ -17,14 +17,37 @@ double Desktop::price()
 
 Desktop::Desktop (std::istream& ist)
 {
-  ist>>_name>>_phone>>_email;
+  int n=std::stoi(getline(ist));
+  int loop_size= n;
+  for(int i=0;i<loop_size;i++;)
+  {
+    ist>>options[i];
+  };
 }
 
 
 void Desktop::save (std::ostream& ost)
 {
-  ost<<_name<<'\n'<<_phone<<'\n'<<_email<<std::endl;
+  int loop_size= options.size();
+  ost<<loop_size<<std::endl;
+  for(int i=0;i<loop_size;i++;)
+  {
+    ost<<options[i];
+  };
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 std::ostream& operator<<(std::ostream& ost, const Desktop& desktop) {
     ost << "Desktop includes";

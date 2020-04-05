@@ -16,13 +16,13 @@ std::string Options::to_string() const
 
 Options::Options (std::istream& ist)
 {
-  ist>>_name>>_phone>>_email;
+  ist>>_name>>_cost;
 }
 
 
 void Options::save (std::ostream& ost)
 {
-  ost<<_name<<'\n'<<_phone<<'\n'<<_email<<std::endl;
+  ost<<_name<<'\n'<<_cost<<std::endl;
 }
 
 
