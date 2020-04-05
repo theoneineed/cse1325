@@ -1,0 +1,36 @@
+#include "options.h"
+
+//puclicma duita thapna chha
+
+Options::Options(std::string name, double cost) : _name{name}, _cost{cost} {}
+
+Options::~Options() {}
+
+double Options::cost() {return _cost;}
+
+std::string Options::to_string() const
+{
+    return _name + " ($" + std::to_string(_cost) + ")";
+}
+
+
+Options::Options (std::istream& ist)
+{
+  ist>>_name>>_phone>>_email;
+}
+
+
+void Options::save (std::ostream& ost)
+{
+  ost<<_name<<'\n'<<_phone<<'\n'<<_email<<std::endl;
+}
+
+
+
+
+
+std::ostream& operator<<(std::ostream& ost, const Options& options)
+{
+    ost << options.to_string();
+    return ost;
+}
