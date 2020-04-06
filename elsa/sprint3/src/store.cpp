@@ -1,8 +1,5 @@
 #include "store.h"
 
-//
-// Customers
-//
 Store::Store()
 {
   std::vector<Customer> customers;
@@ -12,12 +9,13 @@ Store::Store()
 }
 /*Reminder of architecture: A customer goes to a STORE and wants to ORDER something, in his order, he can have different and as many
  DESKTOPs as he wannts and each desktop has different OPTIONS to reconfigure the desktop */
-Store::Store (std::istream& ist)
+
+Store::Store(std::istream& ist)
 {
   int no_cust, no_opt, no_desk, no_ord;
   ist>>no_cust;
   // ist>>no_cust>>no_opt>>no_desk>>no_ord;
-  for (int i=0;i<no_cust;i++;)
+  for (int i=0;i<no_cust;i++)
   {
     ist>>customers[i];
   }
@@ -34,7 +32,7 @@ void Store::save (std::ostream& ost)
   no_ord= orders.size();
   ost<<no_cust<<std::endl;
   // ost<<no_cust<<no_opt<<no_desk<<no_ord<<std::endl;
-  for(int i=0;i<no_cust;i++;)
+  for(int i=0;i<no_cust;i++)
   {
     ost<<customers[i];
     // for(int j=0;j)
