@@ -74,7 +74,7 @@ Desktop& Store::desktop(int index) {return desktops.at(index);}
 // Orders
 //
 int Store::new_order(int customer) {
-    orders.push_back(Order{customers.at(customer)});
+    orders.push_back(Order{&customers.at(customer)});
     return orders.size()-1;
 }
 

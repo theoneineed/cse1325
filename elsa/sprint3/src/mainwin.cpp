@@ -106,7 +106,11 @@ Mainwin::Mainwin(){
   menuitem_save_as->signal_activate().connect([this] {this->on_save_as_click();});
   filemenu->append(*menuitem_save_as);
 
-
+// O P E N
+//load the saved file
+Gtk::MenuItem *menuitem_open = Gtk::manage(new Gtk::MenuItem("_Open", true));
+menuitem_open->signal_activate().connect([this] {this->on_open_click();});
+filemenu->append(*menuitem_open);
 
 
   //now adding new store under File menu

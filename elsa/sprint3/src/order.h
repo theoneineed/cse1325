@@ -6,7 +6,8 @@
 
 class Order {
   public:
-    Order(Customer& customer);
+    Order(Customer* customer);
+    //I don't understand why star is supposed to be use but it said in question, replace & with star.
 
     virtual ~Order();
 
@@ -21,7 +22,7 @@ class Order {
     friend std::ostream& operator<<(std::ostream& ost, const Order& order);
     //added  two new methods compared to sprint 1
   private:
-    Customer& _customer;
+    Customer* _customer;
     std::vector<Desktop*> _products;
 };
 

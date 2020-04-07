@@ -1,5 +1,5 @@
 #include "desktop.h"
-
+#include <iostream>
 Desktop::Desktop()
 {
   std::vector<Options*> options;
@@ -17,6 +17,11 @@ double Desktop::price()
     return p;
 }
 
+std::ostream& operator<<(std::ostream& ost, const Desktop& desktop) {
+    ost << "Desktop includes";
+    for(auto o : desktop.options) ost << "\n  " << *o;
+    return ost;
+}
 
 Desktop::Desktop (std::istream& ist)
 {
@@ -25,9 +30,7 @@ Desktop::Desktop (std::istream& ist)
   //My thought process behind this is same as when prof. showed us for hexdump where first three characters were read to find the file extension
   for(int i=0;i<loop_size;i++)
   {
-    Options not_temp;
-    Options{ist}>>not_temp;
-    options.push_back(&not_temp);
+    options.push_back(new Options {ist});
   };
 }
 
@@ -38,12 +41,6 @@ void Desktop::save (std::ostream& ost)
   ost<<loop_size<<std::endl;
   for(int i=0;i<loop_size;i++)
   {
-    ost<< options[i];
+    options[i]->save(ost);
   };
-}
-
-std::ostream& operator<<(std::ostream& ost, const Desktop& desktop) {
-    ost << "Desktop includes";
-    for(auto o : desktop.options) ost << "\n  " << *o;
-    return ost;
 }

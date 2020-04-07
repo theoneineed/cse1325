@@ -10,7 +10,12 @@ std::ostream& operator<<(std::ostream& ost, const Customer& customer) {
 
 Customer::Customer (std::istream& ist)
 {
-  ist>>_name>>_phone>>_email;
+  getline(ist,_name);
+  ist>>_phone;
+  ist.ignore();
+  ist>> _email;
+  ist.ignore();
+  //ist>>_name>>_phone>>_email;
 }
 
 

@@ -1,6 +1,6 @@
 #include "order.h"
-
-Order::Order(Customer& customer) : _customer{customer} {}
+#include <iostream>
+Order::Order(Customer* customer) : _customer{customer} {}
 
 Order::~Order() {}
 
@@ -13,16 +13,25 @@ double Order::price() const {
 }
 
 
+std::ostream& operator<<(std::ostream& ost, const Order& order) {
+    ost << "Customer: " << order._customer;
+    for(auto p : order._products) ost << "\n  " << *p << "\n  Price: $" << p->price() << "\n";
+    ost << "\nTotal price: $" << order.price();
+    return ost;
+}
+
+
 Order::Order (std::istream& ist)
 {
   //ist>>_customer>>_products;
   int loop_size;
+  _customer = new Customer{ist};
   ist>>loop_size;
-  ist>>order._customer;
+  ist.ignore();
   //My thought process behind this is same as when prof. showed us for hexdump where first three characters were read to find the file extension
   for(int i=0;i<loop_size;i++)
   {
-    order._products.push_back(Desktop* {ist});
+    _products.push_back(new Desktop{ist});
   };
 
 }
@@ -32,21 +41,13 @@ Order::Order (std::istream& ist)
 void Order::save (std::ostream& ost)
 {
   // ost<<order._customer<<order._products<<std::endl;
-  int loop_size= order._products.size();
+  _customer->save(ost);
+  int loop_size=_products.size();
   ost<<loop_size<<std::endl;
-  ost<<order._customer<<std::endl;
+  //ost<<order._customer<<std::endl;
   for(int i=0;i<loop_size;i++)
   {
-    ost<<order._products[i];
+    _products[i]->save(ost);
   };
 
-}
-
-
-
-std::ostream& operator<<(std::ostream& ost, const Order& order) {
-    ost << "Customer: " << order._customer;
-    for(auto p : order._products) ost << "\n  " << *p << "\n  Price: $" << p->price() << "\n";
-    ost << "\nTotal price: $" << order.price();
-    return ost;
 }
