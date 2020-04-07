@@ -15,7 +15,7 @@ protected:
   void on_save_click();
   void on_save_as_click();
   void on_open_click();
-  
+
 /*********************Sprint 3 addition above*****************************/
   void on_quit_click();
   void on_view_peripheral_click();
@@ -38,6 +38,7 @@ private:
   Store* store;
   Gtk::Label* data;
   Gtk::Label* msg;
+  std::string filename;
   //private ma euta filename thapechha
 };
 

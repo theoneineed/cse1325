@@ -23,22 +23,28 @@ Store::Store(std::istream& ist)
 
 /*Reminder of architecture: A customer goes to a STORE and wants to ORDER something, in his order, he can have different and as many
  DESKTOPs as he wannts and each desktop has different OPTIONS to reconfigure the desktop */
-void Store::save (std::ostream& ost)
-{
-  int no_cust, no_opt, no_desk, no_ord;
-  no_cust=customers.size();
-  no_opt= options.size();
-  no_desk= desktops.size();
-  no_ord= orders.size();
-  ost<<no_cust<<std::endl;
-  // ost<<no_cust<<no_opt<<no_desk<<no_ord<<std::endl;
-  for(int i=0;i<no_cust;i++)
-  {
-    ost<<customers[i];
-    // for(int j=0;j)
-  }
 
-}
+ void Store::save( std::ostream& ost )
+ {
+ 	ost<< customers.size()<< std::endl;
+ 	for(int i =0;i< customers.size();i++){
+ 		customers[i].save(ost);
+ 	}
+
+ 	ost<< options.size()<< std::endl;
+ 	for(int i =0;i< options.size();i++){
+ 		options[i]->save(ost);
+ 	}
+
+ 	ost<< desktops.size()<< std::endl;
+ 	for(int i =0;i< desktops.size();i++){
+ 		desktops[i].save(ost);
+ 	}
+ 	ost<< orders.size()<< std::endl;
+ 	for(int i =0;i< orders.size();i++){
+ 		orders[i].save(ost);
+ 	}
+ }
 
 
 

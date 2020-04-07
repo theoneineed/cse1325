@@ -257,43 +257,15 @@ void Mainwin::on_new_store_click()
 
 void Mainwin::on_save_click(){
 
-std::string CANCEL_X= "Exit";
-
-
-    Gtk::FileChooserDialog dialog( "Chose the name of dialog.",
-    Gtk::FileChooserAction::FILE_CHOOSER_ACTION_SAVE);
-
-        auto filter_elsa = Gtk::FileFilter::create();
-        filter_elsa->set_name("ELSA FILES");
-        filter_elsa->add_pattern("*.elsa");
-        dialog.add_filter(filter_elsa);
-
-
-        auto filter_any = Gtk::FileFilter::create();
-        filter_any->set_name("Any Files");
-        filter_any->add_mime_type("*");
-        dialog.add_filter(filter_any);
-
-
-        dialog.set_filename("default.elsa");
-
-        dialog.add_button("_Cancel", 0);
-        dialog.add_button("_Save", 1);
-
-        int result = dialog.run();
-
-        if (result == 1) {
-        std::ofstream ofs{dialog.get_filename()};
-        if (ofs) {
-            store->save(ofs);
-            auto filename = dialog.get_filename();
-
-        }
+    if (filename.length()==0){
+        on_save_as_click();
     }
-    msg->set_text("Saved to designated directory.");
+    else{
+      std::ofstream ofs{filename};
+      store->save(ofs);
+    }
+        msg->set_text("Saved to designated directory.");
 }
-
-
 
 
 void Mainwin::on_save_as_click(){
@@ -322,7 +294,7 @@ if (result == 1){
     try{
         std::ofstream ofs{dialog.get_filename()};
         store->save(ofs);
-         auto filename = dialog.get_filename();
+         filename = dialog.get_filename();
         }
         catch(std:: exception e){
             Gtk::MessageDialog{*this, "Saving failed"}.run();
@@ -362,9 +334,8 @@ if (result == 1){
     try{
         delete store;
         std::ifstream ifs{dialog.get_filename()};
-        bool b;
-        ifs >> b;
-
+        filename  = dialog.get_filename();
+        if(ifs){store= new Store(ifs);}
         }
         catch(std:: exception e){
             Gtk::MessageDialog{*this, "failed to open ELSA file."}.run();
