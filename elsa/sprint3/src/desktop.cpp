@@ -25,7 +25,9 @@ Desktop::Desktop (std::istream& ist)
   //My thought process behind this is same as when prof. showed us for hexdump where first three characters were read to find the file extension
   for(int i=0;i<loop_size;i++)
   {
-    ist>>options[i];
+    Options not_temp;
+    Options{ist}>>not_temp;
+    options.push_back(&not_temp);
   };
 }
 
@@ -36,7 +38,7 @@ void Desktop::save (std::ostream& ost)
   ost<<loop_size<<std::endl;
   for(int i=0;i<loop_size;i++)
   {
-    ost<<options[i];
+    ost<< options[i];
   };
 }
 

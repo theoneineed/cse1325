@@ -16,7 +16,9 @@ std::string Options::to_string() const
 
 Options::Options (std::istream& ist)
 {
-  ist>>_name>>_cost;
+  std::getline(ist, _name); //Read the name as an entire line
+  ist>>_cost;
+  ist.ignore(32767,'\n');//Skip all whitespace through next '\n', leave pointer at start of next line
 }
 
 

@@ -17,7 +17,7 @@ Store::Store(std::istream& ist)
   // ist>>no_cust>>no_opt>>no_desk>>no_ord;
   for (int i=0;i<no_cust;i++)
   {
-    ist>>customers[i];
+    customers.push_back(Customer{ist});
   }
 }
 

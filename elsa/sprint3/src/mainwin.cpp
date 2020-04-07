@@ -69,6 +69,14 @@ Mainwin::Mainwin(){
 
   /* -- - - - - - - - - - - - - - - -These go inside menu items - - - - - - - - - - - - - - - - - - - - - - */
 
+    // ///////////// //////////////////////////////////////////////////////////
+    // T O O L B A R
+    // Add a toolbar to the vertical box below the menu
+    Gtk::Toolbar *toolbar = Gtk::manage(new Gtk::Toolbar);
+    vbox->pack_start(*toolbar, Gtk::PACK_SHRINK, 0);
+    // vbox->add(*toolbar);
+
+
 
 
   //goes under Help
@@ -87,7 +95,25 @@ Mainwin::Mainwin(){
   menuitem_quit->signal_activate().connect([this] {this->on_quit_click();});
   filemenu->append(*menuitem_quit);
 
+  // S A V E   G A M E
+  // Save submenu goes under FILE menu
+   Gtk::MenuItem *menuitem_save = Gtk::manage(new Gtk::MenuItem("_Save", true));
+  menuitem_save->signal_activate().connect([this] {this->on_save_click();});
+  filemenu->append(*menuitem_save);
 
+  // // Save As... to the File menu
+  Gtk::MenuItem *menuitem_save_as = Gtk::manage(new Gtk::MenuItem("Save _As", true));
+  menuitem_save_as->signal_activate().connect([this] {this->on_save_as_click();});
+  filemenu->append(*menuitem_save_as);
+
+
+
+
+  //now adding new store under File menu
+  Gtk::ToolButton *new_store_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::NEW));
+  new_store_button->set_tooltip_markup("Create a new store, discarding any in progress");
+  new_store_button->signal_clicked().connect([this] {this->on_new_store_click();});
+  toolbar->append(*new_store_button);
 
 
 
@@ -162,14 +188,6 @@ Mainwin::Mainwin(){
 
 
 
-  // ///////////// //////////////////////////////////////////////////////////
-  // T O O L B A R
-  // Add a toolbar to the vertical box below the menu
-  Gtk::Toolbar *toolbar = Gtk::manage(new Gtk::Toolbar);
-  vbox->pack_start(*toolbar, Gtk::PACK_SHRINK, 0);
-  // vbox->add(*toolbar);
-
-
 
 
 
@@ -208,6 +226,9 @@ Mainwin::Mainwin(){
   // Make the box and everything in it visible
   vbox->show_all();
 
+  //Start a new STORE
+  on_new_store_click();
+
 }
 
 Mainwin::~Mainwin() { }
@@ -221,6 +242,136 @@ Mainwin::~Mainwin() { }
 //Now, I will go through all the methods being called above and it can be done by looking at the .h file
 
 //So, copy paste commands from the .h file and then fill'em up with sweet delic codes
+
+void Mainwin::on_new_store_click()
+{
+  store= new Store();
+}
+
+
+
+
+void Mainwin::on_save_click(){
+
+std::string CANCEL_X= "Exit";
+
+
+    Gtk::FileChooserDialog dialog( "Chose the name of dialog.",
+    Gtk::FileChooserAction::FILE_CHOOSER_ACTION_SAVE);
+
+        auto filter_elsa = Gtk::FileFilter::create();
+        filter_elsa->set_name("ELSA FILES");
+        filter_elsa->add_pattern("*.elsa");
+        dialog.add_filter(filter_elsa);
+
+
+        auto filter_any = Gtk::FileFilter::create();
+        filter_any->set_name("Any Files");
+        filter_any->add_mime_type("*");
+        dialog.add_filter(filter_any);
+
+
+        dialog.set_filename("default.elsa");
+
+        dialog.add_button("_Cancel", 0);
+        dialog.add_button("_Save", 1);
+
+        int result = dialog.run();
+
+        if (result == 1) {
+        std::ofstream ofs{dialog.get_filename()};
+        if (ofs) {
+            store->save(ofs);
+            auto filename = dialog.get_filename();
+
+        }
+    }
+    msg->set_text("Saved to designated directory.");
+}
+
+
+
+
+void Mainwin::on_save_as_click(){
+Gtk::FileChooserDialog dialog("Please choose a file",
+Gtk::FileChooserAction::FILE_CHOOSER_ACTION_SAVE);
+
+
+auto filter_elsa = Gtk::FileFilter::create();
+filter_elsa->set_name("ELSA Files");
+filter_elsa->add_pattern("*.elsa");
+dialog.add_filter(filter_elsa);
+
+auto filter_any = Gtk::FileFilter::create();
+filter_any->set_name("Any Files");
+filter_any->add_pattern("*");
+dialog.add_filter(filter_any);
+
+dialog.set_filename("default.elsa");
+
+dialog.add_button("_Cancel",0);
+dialog.add_button("_save",1);
+
+int result = dialog.run();
+
+if (result == 1){
+    try{
+        std::ofstream ofs{dialog.get_filename()};
+        store->save(ofs);
+         auto filename = dialog.get_filename();
+        }
+        catch(std:: exception e){
+            Gtk::MessageDialog{*this, "Saving failed"}.run();
+
+        }
+}
+
+}
+
+
+
+
+
+
+void Mainwin::on_open_click(){
+ Gtk::FileChooserDialog dialog("Select a file to open", Gtk::FileChooserAction::FILE_CHOOSER_ACTION_OPEN);
+
+
+auto filter_elsa = Gtk::FileFilter::create();
+filter_elsa->set_name("ELSA Files");
+filter_elsa->add_pattern("*.elsa");
+dialog.add_filter(filter_elsa);
+
+auto filter_any = Gtk::FileFilter::create();
+filter_any->set_name("Any Files");
+filter_any->add_pattern("*");
+dialog.add_filter(filter_any);
+
+dialog.set_filename("default.elsa");
+
+dialog.add_button("_Cancel",0);
+dialog.add_button("_Open",1);
+
+int result = dialog.run();
+
+if (result == 1){
+    try{
+        delete store;
+        std::ifstream ifs{dialog.get_filename()};
+        bool b;
+        ifs >> b;
+
+        }
+        catch(std:: exception e){
+            Gtk::MessageDialog{*this, "failed to open ELSA file."}.run();
+
+        }
+}
+
+
+}
+
+
 
 void Mainwin::on_quit_click()
 {

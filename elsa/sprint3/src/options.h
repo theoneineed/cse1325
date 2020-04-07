@@ -2,7 +2,7 @@
 #define __OPTIONS_H
 
 #include <string>
-#include <ostream>
+#include <iostream>
 
 class Options {
   public:

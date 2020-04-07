@@ -11,6 +11,12 @@ public:
   virtual ~Mainwin();
 
 protected:
+  void on_new_store_click();
+  void on_save_click();
+  void on_save_as_click();
+  void on_open_click();
+  
+/*********************Sprint 3 addition above*****************************/
   void on_quit_click();
   void on_view_peripheral_click();
   void on_view_desktop_click();

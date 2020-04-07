@@ -18,11 +18,11 @@ Order::Order (std::istream& ist)
   //ist>>_customer>>_products;
   int loop_size;
   ist>>loop_size;
-  iat>>order._customer;
+  ist>>order._customer;
   //My thought process behind this is same as when prof. showed us for hexdump where first three characters were read to find the file extension
-  for(int i=0;i<loop_size;i++;)
+  for(int i=0;i<loop_size;i++)
   {
-    ist>>order._products[i];
+    order._products.push_back(Desktop* {ist});
   };
 
 }
@@ -35,7 +35,7 @@ void Order::save (std::ostream& ost)
   int loop_size= order._products.size();
   ost<<loop_size<<std::endl;
   ost<<order._customer<<std::endl;
-  for(int i=0;i<loop_size;i++;)
+  for(int i=0;i<loop_size;i++)
   {
     ost<<order._products[i];
   };
