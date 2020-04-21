@@ -141,6 +141,11 @@ filemenu->append(*menuitem_open);
   menuitem_view_order->signal_activate().connect([this] {this->on_view_order_click();});
   viewmenu->append(*menuitem_view_order);
 
+  // RAM
+  Gtk::MenuItem *menuitem_view_ram = Gtk::manage(new Gtk::MenuItem("Ram", true));
+  menuitem_view_ram->signal_activate().connect([this] {this->on_view_ram_click();});
+  viewmenu->append(*menuitem_view_ram);
+
 
   // Customer
   Gtk::MenuItem *menuitem_view_customer = Gtk::manage(new Gtk::MenuItem("Customer", true));
@@ -384,6 +389,14 @@ void Mainwin::on_view_order_click()
   set_data(os.str());
 };
 
+void Mainwin::on_view_ram_click()
+{
+  std::ostringstream os ;
+  os <<"Ram:\n";
+  for(int i=0; i<Ram.size(); ++i)
+      {os << i << ") " << store->Ram(i) << "\n";}
+  set_data(os.str());
+};
 
 void Mainwin::on_view_customer_click()
 {
