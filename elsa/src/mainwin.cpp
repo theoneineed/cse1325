@@ -40,7 +40,13 @@ Mainwin::Mainwin(){
   menuitem_test->signal_activate().connect([this] {
       Store* store[] = {
         new Customer();
-          };
+        new Order();
+        new Desktop();
+        new Options();
+        new Ram();
+  };
+  for (auto a:stores) stores->add_customers(*store);
+  filemenu->append(*stores);
 
   //need to notice from the diagram givem, we need file, view, insert and help as menu items
 
