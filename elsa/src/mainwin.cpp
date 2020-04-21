@@ -196,11 +196,6 @@ filemenu->append(*menuitem_open);
 */
 
 
-
-
-
-
-
   //     Q U I T
   // Push the quit botton all the way to the right by setting set_expand true
   Gtk::SeparatorToolItem *sep = Gtk::manage(new Gtk::SeparatorToolItem());
@@ -309,8 +304,10 @@ if (result == 1){
 
 }
 
-
-
+// 
+// void Mainwin::on_button_click() {
+//     Gtk::MessageDialog{*this, "Ouch!"}.run();
+// }
 
 
 
