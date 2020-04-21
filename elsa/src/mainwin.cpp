@@ -11,7 +11,10 @@
 #include <iostream> // for std::cerr logging
 #include "store.h"
 #include "entrydialog.h"
+#include "ram.h"
 #include <string>
+#include <sstream>
+#include <fstream>
 
 Mainwin::Mainwin(){
 
@@ -33,7 +36,11 @@ Mainwin::Mainwin(){
   vbox->pack_start(*menubar, Gtk::PACK_SHRINK, 0);
   // vbox->add(*menubar);
 
-
+  Gtk::MenuItem *menuitem_test = Gtk::manage(new Gtk::MenuItem("_Test", true));
+  menuitem_test->signal_activate().connect([this] {
+      Store* store[] = {
+        new Customer();
+          };
 
   //need to notice from the diagram givem, we need file, view, insert and help as menu items
 
@@ -304,7 +311,7 @@ if (result == 1){
 
 }
 
-// 
+//
 // void Mainwin::on_button_click() {
 //     Gtk::MessageDialog{*this, "Ouch!"}.run();
 // }
