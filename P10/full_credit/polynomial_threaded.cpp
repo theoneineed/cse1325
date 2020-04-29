@@ -1,11 +1,14 @@
 #include "polynomial.h"
 #include <cmath>
+#include <thread>
 
 Polynomial::Polynomial() { }
+
 Polynomial::Polynomial(std::istream& ist) {
     int tsize; ist >> tsize;
     while(tsize--) _terms.push_back(Term{ist});
 }
+
 void Polynomial::save(std::ostream& ost) {
     ost << _terms.size() << '\n';
     for(auto t : _terms) t.save(ost);
@@ -14,6 +17,7 @@ void Polynomial::save(std::ostream& ost) {
 void Polynomial::add_term(double coefficient, double exponent) {
     _terms.push_back(Term{coefficient, exponent});
 }
+
 double Polynomial::operator()(double x) {
     double y = 0.0;
     for(auto t : _terms) y += t.eval(x);
@@ -29,10 +33,42 @@ double Polynomial::operator()(double x) {
 // Clear the roots and invoke recursive solution search
 //   nthreads is the number of threads requested
 //   tid is a thread id - useful for logger.h messages
+
 void Polynomial::solve(double min, double max, int nthreads, double slices, double precision) {
     _roots = {};
-    solve_recursive(min, max, 1, slices, precision);
+    //solve_recursive(min, max, 1, slices, precision);
+    std::thread new_threads [nthreads];
+    double t_min = min;
+    double t_max = max;
+    int new_parm = 1;
+    for (int i=0;i<nthreads;++i)
+    {
+      t_min = min*i;
+      t_max = t_max - t_min/slices;
+      new_threads[i]=std::thread([this, slices, new_parm, precision, i, &t_min, &t_max]()
+      {
+        Polynomial::solve_recursive( t_min, t_max, i, slices, precision, new_parm);
+      });
+    //  void Polynomial::solve_recursive(double min, double max, int tid, double slices, double precision, int recursions)
+    //  new_threads[i]=std::thread( &Polynomial::solve_recursive,*this, t_min, t_max, i, slices, precision);
+    }
+    for(int i=0; i<nthreads; ++i)
+    {
+      new_threads[i].join();
+    }
 }
+
+// FULL CREDIT
+// Modify solve and solve_recursive to split the range [min,max]
+//   into distinct ranges [min, min+(max-min)/slices] ... [max-(max-min)/slices, max]
+//   and run solve_recursive once per range, **each as a thread**
+// Then complete the questionaire in file results.txt and commit with your code
+
+// Clear the roots and invoke recursive solution search
+//   nthreads is the number of threads requested
+//   tid is a thread id - useful for logger.h messages
+
+
 // (Internal) recursive search for polynomial solutions
 void Polynomial::solve_recursive(double min, double max, int tid, double slices, double precision, int recursions) {
     Polynomial& f = *this;
@@ -51,7 +87,7 @@ void Polynomial::solve_recursive(double min, double max, int tid, double slices,
                 _roots.push_back((x1+x2)/2);
             }
         }
-        x1 = x2; 
+        x1 = x2;
         x2 = x1 + delta;
         y1 = y2;
     }
@@ -63,6 +99,3 @@ std::ostream& operator<<(std::ostream& ost, const Polynomial& polynomial) {
     for(auto& t : polynomial._terms) ost << t;
     return ost;
 }
-
-
-
