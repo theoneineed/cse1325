@@ -38,17 +38,21 @@ void Polynomial::solve(double min, double max, int nthreads, double slices, doub
     _roots = {};
     //solve_recursive(min, max, 1, slices, precision);
     std::thread new_threads [nthreads];
+    double range = max-min;
+    double differential = range/nthreads;
     double t_min = min;
     double t_max = max;
+    double slices1 = slices/nthreads;
     int new_parm = 1;
     for (int i=0;i<nthreads;++i)
     {
-      t_min = min*i;
-      t_max = t_max - t_min/slices;
-      new_threads[i]=std::thread([this, slices, new_parm, precision, i, &t_min, &t_max]()
+      t_min = min + i*differential;
+      t_max = t_max - t_min + differential;
+      new_threads[i]=std::thread([this, slices, new_parm, precision, i, slices1, &t_min, &t_max]()
       {
-        Polynomial::solve_recursive( t_min, t_max, i, slices, precision, new_parm);
+        Polynomial::solve_recursive( t_min, t_max, i, slices1, precision, new_parm);
       });
+
     //  void Polynomial::solve_recursive(double min, double max, int tid, double slices, double precision, int recursions)
     //  new_threads[i]=std::thread( &Polynomial::solve_recursive,*this, t_min, t_max, i, slices, precision);
     }
